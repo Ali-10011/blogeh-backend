@@ -1,14 +1,22 @@
 const express = require("express");
-const { getBlogs, uploadBlog } = require("../controllers/blogsController");
+const { getBlogs, uploadBlog, deleteBlog, getSingleBlog, updateBlog } = require("../controllers/blogsController");
 
 const router = express.Router();
 
-//GET messages
+//GET blogs
 router.get("/home/blogs", getBlogs);
 
-//POST a single message
+//GET a single blog
+router.get("/home/blogs/:id", getSingleBlog);
+
+//POST a single blog
 router.post("/home/new-blog", uploadBlog);
 
+//delete a single blog
+router.delete("/home/blogs/:id", deleteBlog)
+
+//update a single blog
+router.patch("/home/blogs/:id", updateBlog)
 
 
 //Exporting Modules
