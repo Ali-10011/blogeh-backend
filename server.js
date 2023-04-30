@@ -1,6 +1,7 @@
 const { json } = require("express");
 const express = require("express");
 const mongoose = require("mongoose");
+const blogRoutes = require("./routes/blogRoutes");
 require('dotenv').config();
 
 
@@ -22,4 +23,4 @@ app.use(express.urlencoded({ extended: true }));
 
 
 //All the routes
-app.use("/api", messagesRoutes);
+app.use("/api", blogRoutes);
