@@ -59,7 +59,7 @@ const authenticateUser = async (req, res) => {
       return res.status(400).send({ msg: "All input is required" });
     }
     // Validate if user exist in our database
-    const user = await Auth.findOne({ username });
+    const user = await Auth.findOne({ username: username });
 
     if (!user) {
       return res.status(401).send({ msg: "This user does not exist" });
