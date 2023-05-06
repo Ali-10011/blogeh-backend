@@ -5,7 +5,7 @@ const getBlogs = async (req, res) => {
   const queryObject = url.parse(req.url, true).query;
   try {
     const blogs = await blogsModel
-      .find({ username: "test" })
+      .find({ username: req.username })
       .limit(parseInt(queryObject.perpage))
       .skip((parseInt(queryObject.pageno) - 1) * parseInt(queryObject.perpage))
       .sort({ createdAt: -1 });
@@ -20,12 +20,10 @@ const getBlogs = async (req, res) => {
 const uploadBlog = async (req, res) => {
   try {
     const blog = await new blogsModel({
-      username: "test",
+      username: req.username,
       title: req.body.title,
       body: req.body.body,
     }).save();
-
-    console.log(blog);
 
     if (!blog) {
       res.status(404).json({ message: "Cannot Complete Request" });
@@ -85,7 +83,6 @@ const updateBlog = async (req, res) => {
       res.status(200).json({message : "Successfully Updated" });
     }
   } catch (e) {
-    console.log(e);
     res.status(500).json({ message: "Internal server error" });
   }
 };
