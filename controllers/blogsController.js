@@ -25,8 +25,6 @@ const uploadBlog = async (req, res) => {
       body: req.body.body,
     }).save();
 
-    console.log(blog);
-
     if (!blog) {
       res.status(404).json({ message: "Cannot Complete Request" });
     } else {
@@ -85,7 +83,6 @@ const updateBlog = async (req, res) => {
       res.status(200).json({message : "Successfully Updated" });
     }
   } catch (e) {
-    console.log(e);
     res.status(500).json({ message: "Internal server error" });
   }
 };
