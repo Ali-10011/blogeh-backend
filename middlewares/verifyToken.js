@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const authModel = require("../models/authModel");
-require('dotenv').config();
+require("dotenv").config();
 
 const verifyToken = async (req, res, next) => {
   try {
@@ -11,10 +11,8 @@ const verifyToken = async (req, res, next) => {
       const token = req.headers.authorization.split(" ")[1];
 
       jwt.verify(token, process.env.TOKEN_SECRET, function (err, decoded) {
-
         if (err) {
-         return  res.status(401).json({ msg: err.message });
-          console.log(err);
+          return res.status(401).json({ msg: err.message });
         } else {
           authModel.findOne({ username: decoded.username }).then((result) => {
             if (result) {
