@@ -57,7 +57,7 @@ const deleteBlog = async (req, res) => {
 //Getting a Single Blog
 const getSingleBlog = async (req, res) => {
   try {
-    const blog = await blogsModel.findOne({
+    const blog = await blogsModel.findOneAndDelete({
       _id: req.params.id,
     });
 
