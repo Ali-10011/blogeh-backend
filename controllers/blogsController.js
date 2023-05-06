@@ -5,7 +5,7 @@ const getBlogs = async (req, res) => {
   const queryObject = url.parse(req.url, true).query;
   try {
     const blogs = await blogsModel
-      .find({ username: "test" })
+      .find({ username: req.username })
       .limit(parseInt(queryObject.perpage))
       .skip((parseInt(queryObject.pageno) - 1) * parseInt(queryObject.perpage))
       .sort({ createdAt: -1 });
@@ -20,7 +20,7 @@ const getBlogs = async (req, res) => {
 const uploadBlog = async (req, res) => {
   try {
     const blog = await new blogsModel({
-      username: "test",
+      username: req.username,
       title: req.body.title,
       body: req.body.body,
     }).save();
