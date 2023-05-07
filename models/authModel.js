@@ -12,6 +12,10 @@ const authSchema = new Schema(
     {
         type: String,
         required: true,
+    },
+    following:
+    {
+      type: [String],
     }
   },
   { timestamps: true }
