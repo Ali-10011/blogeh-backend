@@ -1,5 +1,5 @@
 const express = require("express");
-const {updateProfile, getProfile} = require("../controllers/profileController");
+const {updateProfile, getProfile, followProfile} = require("../controllers/profileController");
 const  verifyToken  = require("../middlewares/verifyToken");
 
 const router = express.Router();
@@ -9,6 +9,9 @@ router.post("/home/profile", verifyToken, updateProfile);
 
 //get profile
 router.get("/home/profile", verifyToken, getProfile);
+
+//follow profile
+router.post("/home/profile/follow",verifyToken, followProfile)
 
 //Exporting Modules
 module.exports = router;

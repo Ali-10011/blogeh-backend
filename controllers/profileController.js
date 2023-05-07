@@ -39,14 +39,45 @@ const updateProfile = async (req, res) => {
 const getProfile = async (req, res) => {
   try {
     const blogs = await blogsModel.find({ username: req.username });
-    const blogsCount = blogs.length
-    return res
-      .status(500)
-      .json({ username: req.username, blogsCount: blogsCount.toString() });
+    const user = await Auth.findOne({ username: req.username });
+
+    const blogsCount = blogs.length.toString();
+    const followings = user.following.length.toString();
+
+    return res.status(500).json({
+      username: req.username,
+      blogsCount: blogsCount,
+      followings: followings,
+    });
   } catch (e) {
-    console.log(e)
+    console.log(e);
     return res.status(500).json({ msg: "Internal server error" });
   }
 };
 
-module.exports = { updateProfile, getProfile };
+const followProfile = async (req, res) => {
+  try {
+    const user = await Auth.findOne({ username: req.username });
+    const followingUser = await Auth.findOne({ username: req.body.follow });
+    console.log(followingUser._id);
+    console.log(user.following);
+    var followings = user.following;
+    if (followings.includes(followingUser._id)) {
+      return res
+        .status(201)
+        .json({ msg: "This user is already being followed !" });
+    } else {
+      followings.push(followingUser._id);
+
+      await Auth.findOneAndUpdate(
+        { username: req.username },
+        { following: followings }
+      );
+      return res.status(200).json({ msg: "User successfully followed!" });
+    }
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ msg: "Internal server error" });
+  }
+};
+module.exports = { updateProfile, getProfile, followProfile };
