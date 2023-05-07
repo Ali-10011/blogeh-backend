@@ -2,13 +2,8 @@ const url = require("url");
 const blogsModel = require("../models/blogsModel");
 
 const getBlogs = async (req, res) => {
-  const queryObject = url.parse(req.url, true).query;
   try {
-    const blogs = await blogsModel
-      .find({ username: req.username })
-      .limit(parseInt(queryObject.perpage))
-      .skip((parseInt(queryObject.pageno) - 1) * parseInt(queryObject.perpage))
-      .sort({ createdAt: -1 });
+    const blogs = await blogsModel.find().limit(10).sort({ createdAt: -1 });
 
     res.status(200).json(blogs);
   } catch (e) {
@@ -80,7 +75,7 @@ const updateBlog = async (req, res) => {
     if (!blog) {
       res.status(404).json({ message: "Cannot Update" });
     } else {
-      res.status(200).json({message : "Successfully Updated" });
+      res.status(200).json({ message: "Successfully Updated" });
     }
   } catch (e) {
     res.status(500).json({ message: "Internal server error" });
