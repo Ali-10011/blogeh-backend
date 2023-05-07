@@ -6,7 +6,7 @@ require("dotenv").config();
 const registerUser = async (req, res) => {
   try {
     // Get user input
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
     //Validate user input
     if (!(username && password && email)) {
