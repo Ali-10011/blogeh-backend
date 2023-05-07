@@ -27,6 +27,7 @@ const registerUser = async (req, res) => {
     // Create user in our database
     const newUser = await Auth.create({
       //We will not store the password in database
+      email: email,
       username: username,
       password: encryptedPassword,
     });
@@ -44,6 +45,7 @@ const registerUser = async (req, res) => {
     // return new user
     res.status(201).json(newUser);
   } catch (err) {
+    console.log(err)
     res.status(500).json({ msg: "Internal Server ERROR" });
   }
 };
