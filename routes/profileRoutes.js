@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/home/profile", verifyToken, updateProfile);
 
 //get profile
-router.get("/home/profile", verifyToken, getProfile);
+router.post("/home/user/profile", verifyToken, getProfile);
 
 //follow profile
 router.post("/home/profile/follow",verifyToken, followProfile)

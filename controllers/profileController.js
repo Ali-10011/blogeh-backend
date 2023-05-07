@@ -38,15 +38,15 @@ const updateProfile = async (req, res) => {
 
 const getProfile = async (req, res) => {
   try {
-    const blogs = await blogsModel.find({ username: req.username });
-    const user = await Auth.findOne({ username: req.username });
+    const blogs = await blogsModel.find({ username: req.body.username });
+    const user = await Auth.findOne({ username: req.body.username });
 
     const blogsCount = blogs.length.toString();
     const followings = user.following.length.toString();
 
     return res.status(200).json({
       email: user.email,
-      username: req.username,
+      username: user.username,
       blogsCount: blogsCount,
       followings: followings,
     });
