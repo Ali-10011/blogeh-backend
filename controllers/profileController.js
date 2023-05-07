@@ -44,7 +44,7 @@ const getProfile = async (req, res) => {
     const blogsCount = blogs.length.toString();
     const followings = user.following.length.toString();
 
-    return res.status(500).json({
+    return res.status(200).json({
       username: req.username,
       blogsCount: blogsCount,
       followings: followings,
