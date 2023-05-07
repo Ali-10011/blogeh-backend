@@ -50,6 +50,7 @@ const getProfile = async (req, res) => {
       blogsCount: blogsCount,
       followings: followings,
     });
+    
   } catch (e) {
     console.log(e);
     return res.status(500).json({ msg: "Internal server error" });

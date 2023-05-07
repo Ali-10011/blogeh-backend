@@ -1,9 +1,21 @@
 const url = require("url");
 const blogsModel = require("../models/blogsModel");
 
-const getBlogs = async (req, res) => {
+const getRecentBlogs = async (req, res) => {
   try {
     const blogs = await blogsModel.find().limit(10).sort({ createdAt: -1 });
+
+    res.status(200).json(blogs);
+  } catch (e) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+const getBlogs = async (req, res) => {
+  try {
+    const blogs = await blogsModel
+      .find({ username: req.username })
+      .sort({ createdAt: -1 });
 
     res.status(200).json(blogs);
   } catch (e) {
@@ -83,6 +95,7 @@ const updateBlog = async (req, res) => {
 };
 
 module.exports = {
+  getRecentBlogs,
   getBlogs,
   uploadBlog,
   deleteBlog,
