@@ -45,6 +45,7 @@ const getProfile = async (req, res) => {
     const followings = user.following.length.toString();
 
     return res.status(200).json({
+      email: user.email,
       username: req.username,
       blogsCount: blogsCount,
       followings: followings,

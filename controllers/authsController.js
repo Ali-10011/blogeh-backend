@@ -9,9 +9,8 @@ const registerUser = async (req, res) => {
     const { username, password } = req.body;
 
     //Validate user input
-    if (!(username && password)) {
+    if (!(username && password && email)) {
       return res.status(400).send({ msg: "All input is required" });
-      
     }
 
     // check if user already exist
@@ -75,10 +74,8 @@ const authenticateUser = async (req, res) => {
         }
       );
 
-
       // user
-    return  res.status(200).json({token: token, msg: "Success"});
-      
+      return res.status(200).json({ token: token, msg: "Success" });
     }
     res.status(400).send({ msg: "Invalid Password" });
   } catch (err) {
