@@ -3,7 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const blogRoutes = require("./routes/blogRoutes");
 const authRoutes = require("./routes/authRoutes");
-const profileRoutes = require("./routes/profileRoutes")
+const profileRoutes = require("./routes/profileRoutes");
+const cors = require("cors");
 require("dotenv").config();
 
 mongoose
@@ -23,9 +24,10 @@ mongoose
 //MiddleWare
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 //All the routes
 app.use("/api", blogRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api", profileRoutes )
+app.use("/api", profileRoutes);
