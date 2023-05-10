@@ -43,7 +43,7 @@ const registerUser = async (req, res) => {
 
     newUser.token = token;
     // return new user
-    res.status(201).json(newUser);
+    res.status(200).json(newUser);
   } catch (err) {
     console.log(err)
     res.status(500).json({ msg: "Internal Server ERROR" });
